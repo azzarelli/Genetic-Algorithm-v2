@@ -8,8 +8,8 @@
     # Survival rating (/11) = Beauty (2) + Strength (5) + Intelligence(4)
 
 
-import classes # classes.py contains person class
-import functions # functions.py contains functions used
+from classes import PersonClass # classes.py contains person class
+from functions import child_str, child_intel # functions.py contains functions used
 
 import random # for randomness
 from datetime import datetime # for random seed
@@ -31,7 +31,7 @@ beauty = [] # Create array to store the level of beauty of individuals
 children_num = 0 # set the id given to a new children to identify it as 0
 
 for i in range(100): # initialise the first generation
-    population.append(classes.PersonClass(i, random.randint(0,2),random.randint(0,8),random.randint(0,10), 0))
+    population.append(PersonClass(i, random.randint(0,2),random.randint(0,8),random.randint(0,10), 0))
 
 alive_num = len(population) # determine how many are alive
 
@@ -54,9 +54,9 @@ for i in range(0, alive_num):
             children_num = children_num + 1 # adding to child's id
 
             child_intelligence = int((alive[i].intelligence + alive[j].intelligence)/2) # determining child's intelligence
-            child_strength = functions.child_str(alive[i].strength, alive[j].strength) # and strenght (in functions.py)
+            child_strength = child_str(alive[i].strength, alive[j].strength) # and strenght (in functions.py)
            
-            alive.append(classes.PersonClass(children_num, beauty[i], child_intelligence, child_strength, 0)) # create the child
+            alive.append(PersonClass(children_num, beauty[i], child_intelligence, child_strength, 0)) # create the child
             
 
 track_size.append(len(alive)) # track the new # of individuals
@@ -84,7 +84,7 @@ track_beauty.append(num_beau)
 year = 1
 
 
-while(year < 200):
+while(year < 150):
 
     random.seed(datetime.now()) # Seed forever changes
 
@@ -125,26 +125,26 @@ while(year < 200):
                 if((alive[i].age > 25)and(alive[j].age>25)and(alive[i].age<55)and(alive[j].age<55)): # age of reproduction becomes a factor
 
                     if((alive[i].children < 5)and(alive[j].children < 5)): # only mates with someone once a year
-                        child_intelligence = functions.child_intel(alive[i].intelligence, alive[j].intelligence)
+                        child_intelligence = child_intel(alive[i].intelligence, alive[j].intelligence)
 
-                        child_strength = functions.child_str(alive[i].strength, alive[j].strength)
+                        child_strength = child_str(alive[i].strength, alive[j].strength)
 
                         # Likelihood of having more than one child at once
                         if(randNum1 < 0.004): # 0.40% of having twins and set them
-                            alive.append(classes.PersonClass(children_num, beauty[i], child_intelligence, child_strength, 0))
-                            alive.append(classes.PersonClass(children_num+1, beauty[i], child_intelligence, child_strength, 0))
+                            alive.append(PersonClass(children_num, beauty[i], child_intelligence, child_strength, 0))
+                            alive.append(PersonClass(children_num+1, beauty[i], child_intelligence, child_strength, 0))
                             children_num = children_num + 2
                             alive[i].children = alive[i].children + 2
                             alive[j].children = alive[j].children + 2
                         elif(randNum1 < 0.00412): # 0.012% of having triplets and set them
-                            alive.append(classes.PersonClass(children_num, beauty[i], child_intelligence, child_strength, 0))
-                            alive.append(classes.PersonClass(children_num+1, beauty[i], child_intelligence, child_strength, 0))
-                            alive.append(classes.PersonClass(children_num+2, beauty[i], child_intelligence, child_strength, 0))
+                            alive.append(PersonClass(children_num, beauty[i], child_intelligence, child_strength, 0))
+                            alive.append(PersonClass(children_num+1, beauty[i], child_intelligence, child_strength, 0))
+                            alive.append(PersonClass(children_num+2, beauty[i], child_intelligence, child_strength, 0))
                             children_num = children_num + 3
                             alive[i].children = alive[i].children + 3
                             alive[j].children = alive[j].children + 3
                         else: # otherwise have one
-                            alive.append(classes.PersonClass(children_num, beauty[i], child_intelligence, child_strength, 0))
+                            alive.append(PersonClass(children_num, beauty[i], child_intelligence, child_strength, 0))
                             children_num = children_num + 1
                             alive[i].children = alive[i].children + 1
                             alive[j].children = alive[j].children + 1

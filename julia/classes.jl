@@ -2,8 +2,8 @@
 mutable struct people
 
     beauty::Int
-    strength::AbstractFloat
-    intelligence::AbstractFloat
+    strength::Int
+    intelligence::Int
 
     health::Int
     fit::Int
@@ -11,8 +11,7 @@ mutable struct people
     age::Int
     children::Int
 
-    people(beauty, strength, intelligence) = new(beauty,strength,intelligence, 100, beauty+strength+intelligence, 
-           (beauty+strength+intelligence)/20, 0, 0)
+    people(beauty, strength, intelligence) = new(beauty,strength,intelligence, 100, beauty+strength+intelligence, (beauty+strength+intelligence)/20, 0, 0)
 
 
 end

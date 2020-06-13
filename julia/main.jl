@@ -49,22 +49,51 @@ population = alive
 alive = []
 
 alive_num = length(population)
+println(alive_num)
 
 randNum = rand(0:5)
 
-for i in 1:(alive_num-1)
-    for j in (i+1):(alive_num)
+# First Gen Reproduction
+for i in eachindex(alive_num-1) # 1 to alive-1 , writing eachindex segfaults
+    for j in i+1:alive_num-1 # axes((i+1), (alive_num-1)) # i+1 to alive - 1, to do range without seg-faults
         if (randNum == 1) && (beauty[i] == beauty[j])
             i = child_int(population[i].intelligence, population[j].intelligence, rand(0:5))
             s = child_str(population[i].strength, population[j].strength)
-            b = child_beu(population[i].beauty, population[j].beauty, rand(0:10))
+            b = child_beau(population[i].beauty, population[j].beauty, rand(0:10))
 
-            println(b, s, i)
             push!(population, people(b, s, i))
         end
     end
 end
 
-#alive_num = length(population)
-#println(alive_num)
-println(length(population))
+push!(track_size, length(population))
+
+# Initialise Tracking Values
+num_str = 0
+typeof(num_str)
+num_intel = 0
+num_beau = 0
+
+
+for obj in population
+    num_str = 0
+    typeof(num_str)
+    num_intel = 0
+    num_beau = 0
+    if obj.beauty == 2
+        num_beau += 1
+    end
+    if obj.strength == 10
+        num_str += 1
+    end
+    if obj.intelligence == 8
+        num_intel += 1
+    end
+end
+
+push!(track_intelligence, num_intel)
+push!(track_strength, num_str)
+push!(track_beauty, num_beau)
+
+year = 1
+

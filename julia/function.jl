@@ -1,6 +1,6 @@
 
 # Determining a child's strength
-function child_str(a::Int32, b::Int32)
+function child_str(a::Int64, b::Int64)
     if a >= b
         return a
     else
@@ -9,7 +9,7 @@ function child_str(a::Int32, b::Int32)
 end
 
 # Determining a child's intelligence
-function child_int(a::Int32, b::Int32, rand::Int32)
+function child_int(a::Int64, b::Int64, rand::Int64)
     if a >= 6 &&  b >= 6 && (rand > 1) # rand is 0 to 5 so 1/5 chance super-intelligence isn't passed on 
         if (a > 7) || (b > 7) # if either parents have full super-intelligence
             return 8
@@ -29,12 +29,13 @@ function child_int(a::Int32, b::Int32, rand::Int32)
     end
 end
 
-function child_beau(a::Int32, b::Int32, rand::Int32)
+function child_beau(a::Int64, b::Int64, rand::Int64)
     if(rand == 10) # chance of being more beautiful than the parents, 1/10
-        return convert(Int, ((a+b)/2) + 1)
+        return convert(Int64, round(((a+b)/2) + 1))
     elseif rand == 3 || rand == 1 # chance of being less attractive, 2/10
-        z = convert(Int32, (a+b)/2 -1)
-        z = convert(Int32, sqrt(z * z))      
+        z = (a+b)/2 -1
+        z = convert(Int64, round(z))
+        z = convert(Int64, sqrt(z * z))      
         return z
     else
         return a
